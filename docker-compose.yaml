@@ -2,14 +2,14 @@ version: '3'
 
 services:
   nginx:
-    image: nginx:latest
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    image: jitsi-nginx
+    build: .
     ports:
       - "80:80"
+      - "443:443"
     networks:
       - docker-jitsi-meet_meet.jitsi
 
 networks:
   docker-jitsi-meet_meet.jitsi:
-   external: true
+    external: true
