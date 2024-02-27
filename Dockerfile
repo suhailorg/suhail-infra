@@ -13,8 +13,10 @@ RUN mkdir -p /var/www/certbot/
 # Copy nginx configuration file
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf.template /etc/nginx/nginx.conf.template
+COPY nginx.initial.conf.template /etc/nginx/nginx.initial.conf.template
 # Automatically substitute the DOMAIN_NAME variable in the nginx configuration file
-RUN envsubst '${DOMAIN_NAME}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
+RUN envsubst '${DOMAIN_NAME}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.actual.conf
+RUN envsubst '${DOMAIN_NAME}' < /etc/nginx/nginx.initial.conf.template > /etc/nginx/nginx.conf
 
 # Set up entrypoint script for certificate renewal
 COPY entrypoint.sh /entrypoint.sh

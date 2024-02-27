@@ -1,0 +1,21 @@
+events {
+    # Configuration related to event processing
+}
+
+http {
+    server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        server_name $DOMAIN_NAME www.$DOMAIN_NAME;
+
+        # Redirect HTTP traffic to HTTPS, except for ACME challenge requests
+        location /.well-known/acme-challenge/ {
+            allow all;
+            root /tmp/acme-challenge;
+        }
+
+        location / {
+            return 301 https://$host$request_uri;
+        }
+    }
+}
