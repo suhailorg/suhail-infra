@@ -2,14 +2,42 @@ version: '3'
 
 services:
   nginx:
+    container_name: jitsi-nginx
     image: jitsi-nginx
-    build: .
+    build:
+      context: .
+      args:
+        DOMAIN_NAME: ${DOMAIN_NAME}
     ports:
-      - "80:80"
-      - "443:443"
+      - "${NGINX_HTTP_PORT}:80"
+      - "${NGINX_HTTPS_PORT}:443"
+    restart: always
+    volumes:
+      - ./config:/config
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /tmp/acme-challenge:/tmp/acme-challenge
     networks:
-      - docker-jitsi-meet_meet.jitsi
+      - jitsi_network
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME}
+
+  certbot:
+    container_name: jitsi-certbot
+    image: certbot/certbot:latest
+    volumes:
+      - "/etc/letsencrypt:/etc/letsencrypt"
+      - "/tmp/acme-challenge:/tmp/acme-challenge"
+    entrypoint: ""
+    command: sh -c "certbot certonly --webroot -w /tmp/acme-challenge -d ${DOMAIN_NAME} --text --agree-tos --staging --non-interactive --email ${ADMIN_EMAIL} --rsa-key-size ${RSA_KEY_SIZE} --verbose"
+    networks:
+      - jitsi_network
+
+volumes:
+  certbot-etc:
+  certbot-var:
+  web-root:
 
 networks:
-  docker-jitsi-meet_meet.jitsi:
+  jitsi_network:
     external: true
+    name: ${NETWORK_NAME}
