@@ -42,4 +42,11 @@ cd ../ || exit
 # Stage 2: Running (nginx)
 
 # Run nginx using Docker Compose with build option
-docker-compose up -d --build
+docker-compose build --no-cache
+docker-compose up -d
+
+# Copy the actual Nginx configuration file within the jitsi-nginx container
+docker-compose exec jitsi-nginx cp /etc/nginx/nginx.actual.conf /etc/nginx/nginx.conf
+
+# Reload Nginx configuration
+docker-compose exec jitsi-nginx nginx -s reload
