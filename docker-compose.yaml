@@ -21,23 +21,18 @@ services:
     environment:
       - DOMAIN_NAME=${DOMAIN_NAME}
 
-  # certbot:
-  #   container_name: jitsi-certbot
-  #   image: certbot/certbot:latest
-  #   volumes:
-  #     - "/etc/letsencrypt:/etc/letsencrypt"
-  #     - "/tmp/acme-challenge:/tmp/acme-challenge"
-  #   depends_on:
-  #     - nginx
-  #   entrypoint: ""
-  #   command: sh -c "certbot certonly --webroot -w /tmp/acme-challenge -d ${DOMAIN_NAME} --text --agree-tos --staging --non-interactive --email ${ADMIN_EMAIL} --rsa-key-size ${RSA_KEY_SIZE} --verbose"
-  #   networks:
-  #     - jitsi_network
-
-volumes:
-  certbot-etc:
-  certbot-var:
-  web-root:
+  certbot:
+    container_name: jitsi-certbot
+    image: certbot/certbot:latest
+    volumes:
+      - "/etc/letsencrypt:/etc/letsencrypt"
+      - "/tmp/acme-challenge:/tmp/acme-challenge"
+    depends_on:
+      - nginx
+    entrypoint: ""
+    command:  sh -c "certbot certonly --webroot -w /tmp/acme-challenge -d ${DOMAIN_NAME} --text --agree-tos --staging --non-interactive --email ${ADMIN_EMAIL} --rsa-key-size ${RSA_KEY_SIZE} --verbose"
+    networks:
+      - jitsi_network
 
 networks:
   jitsi_network:
