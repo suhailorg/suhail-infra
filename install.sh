@@ -45,8 +45,4 @@ cd ../ || exit
 docker-compose build --no-cache
 docker-compose up -d
 
-# # Copy the actual Nginx configuration file within the jitsi-nginx container
-# docker-compose exec jitsi-nginx cp /etc/nginx/nginx.actual.conf /etc/nginx/nginx.conf
-
-# # Reload Nginx configuration
-# docker-compose exec jitsi-nginx nginx -s reload
+docker exec jitsi-nginx /bin/bash -c "/scripts/update_ssl_config.sh"
