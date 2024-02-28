@@ -18,4 +18,32 @@ http {
             return 301 https://$host$request_uri;
         }
     }
+
+    server {
+        listen 443;
+        listen [::]:443;
+        server_name $DOMAIN_NAME;
+
+        # Proxy HTTP and WebSocket traffic to Jitsi internal services
+        location / {
+            proxy_pass http://web;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        }
+
+        location /xmpp-websocket {
+            proxy_pass http://web;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        }
+
+        location /colibri-ws {
+            proxy_pass http://jvb;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        }
+    }
 }
