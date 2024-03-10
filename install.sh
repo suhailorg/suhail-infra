@@ -12,13 +12,13 @@ if [ -z "$DOMAIN_NAME" ] || [ -z "$ADMIN_EMAIL" ]; then
     exit 1
 fi
 
-# Stage 1: Setting up and running Jitsi Meet services
+# Stage 1: Setting up and running Suhail Meet services
 
-# Clone the docker-jitsi-meet repository
-git clone https://github.com/jitsi/docker-jitsi-meet
+# Clone the docker-suhail-meet repository
+git clone https://github.com/suhailorg/docker-suhail-meet
 
-# Move into the docker-jitsi-meet repository
-cd docker-jitsi-meet || exit
+# Move into the docker-suhail-meet repository
+cd docker-suhail-meet || exit
 
 # Copy env.example to .env (no loading or validation here)
 cp env.example .env
@@ -31,9 +31,9 @@ chmod +x ./gen-passwords.sh
 ./gen-passwords.sh
 
 # Create required CONFIG directories
-mkdir -p ~/.jitsi-meet-cfg/{web,transcripts,prosody/config,prosody/prosody-plugins-custom,jicofo,jvb,jigasi,jibri}
+mkdir -p ~/.suhail-meet-cfg/{web,transcripts,prosody/config,prosody/prosody-plugins-custom,jicofo,jvb,jigasi,jibri}
 
-# Start services using Docker Compose for Jitsi Meet
+# Start services using Docker Compose for Suhail Meet
 docker-compose up -d
 
 # Move back to the parent directory
@@ -45,4 +45,4 @@ cd ../ || exit
 docker-compose build --no-cache
 docker-compose up -d
 
-docker exec jitsi-nginx /bin/bash -c "/scripts/update_ssl_config.sh"
+docker exec suhail-nginx /bin/bash -c "/scripts/update_ssl_config.sh"

@@ -2,8 +2,8 @@ version: '3'
 
 services:
   nginx:
-    container_name: jitsi-nginx
-    image: jitsi-nginx
+    container_name: suhail-nginx
+    image: suhail-nginx
     build:
       context: .
       args:
@@ -17,12 +17,12 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
       - /tmp/acme-challenge:/tmp/acme-challenge
     networks:
-      - jitsi_network
+      - suhail_network
     environment:
       - DOMAIN_NAME=${DOMAIN_NAME}
 
   certbot:
-    container_name: jitsi-certbot
+    container_name: suhail-certbot
     image: certbot/certbot:latest
     volumes:
       - "/etc/letsencrypt:/etc/letsencrypt"
@@ -32,9 +32,9 @@ services:
     entrypoint: ""
     command: sh -c "certbot certonly --webroot -w /tmp/acme-challenge -d ${DOMAIN_NAME} --text --agree-tos --non-interactive --email ${ADMIN_EMAIL} --rsa-key-size ${RSA_KEY_SIZE} --verbose"
     networks:
-      - jitsi_network
+      - suhail_network
 
 networks:
-  jitsi_network:
+  suhail_network:
     external: true
     name: ${NETWORK_NAME}
