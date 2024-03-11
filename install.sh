@@ -20,6 +20,9 @@ git clone git@github.com:suhailorg/docker-suhail-meet.git
 # Move into the docker-suhail-meet repository
 cd docker-suhail-meet || exit
 
+# Submodules
+git submodule update --init --recursive
+
 # Copy env.example to .env (no loading or validation here)
 cp env.example .env
 
@@ -32,6 +35,9 @@ chmod +x ./gen-passwords.sh
 
 # Create required CONFIG directories
 mkdir -p ~/.suhail-meet-cfg/{web,transcripts,prosody/config,prosody/prosody-plugins-custom,jicofo,jvb,jigasi,jibri}
+
+# Build the docker images
+make
 
 # Start services using Docker Compose for Suhail Meet
 docker-compose up -d

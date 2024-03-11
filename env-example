@@ -16,4 +16,4 @@ NGINX_HTTP_PORT=80
 NGINX_HTTPS_PORT=443
 
 # Network name for Docker containers
-NETWORK_NAME=docker-jitsi-meet_meet.jitsi
+NETWORK_NAME=docker-suhail-meet_meet.suhail

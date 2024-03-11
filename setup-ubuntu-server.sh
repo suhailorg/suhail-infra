@@ -7,7 +7,7 @@
 
 # Step 2: Update Package Lists
 sudo apt update -y
-sudo apt-get install docker-compose -y
+sudo apt-get install docker-compose make -y
 
 # Step 3: Install Necessary Packages
 sudo apt install -y docker.io git
