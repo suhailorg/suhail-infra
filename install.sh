@@ -15,7 +15,7 @@ fi
 # Stage 1: Setting up and running Suhail Meet services
 
 # Clone the docker-suhail-meet repository
-git clone https://github.com/suhailorg/docker-suhail-meet
+git clone git@github.com:suhailorg/docker-suhail-meet.git
 
 # Move into the docker-suhail-meet repository
 cd docker-suhail-meet || exit
