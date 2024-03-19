@@ -23,3 +23,4 @@ JWT_APP_ID=suhail_userservice_dev
 
 # Set the JWT application secret with the provided value
 JWT_APP_SECRET=my_suhail_app_dev_secret
+PROSODY_AUTH_TYPE=jwt

@@ -32,6 +32,8 @@ sed -i "s/#ENABLE_GUESTS=1/ENABLE_GUESTS=1" .env
 sed -i "s/#AUTH_TYPE=internal/AUTH_TYPE=jwt" .env
 sed -i "s/#JWT_APP_ID=my_jitsi_app_id/JWT_APP_ID=$JWT_APP_ID" .env
 sed -i "s/#JWT_APP_SECRET=my_jitsi_app_secret/JWT_APP_SECRET=$JWT_APP_SECRET" .env
+sed -i "/JWT_APP_SECRET=/a PROSODY_AUTH_TYPE=$PROSODY_AUTH_TYPE" .env
+
 
 # Run ./gen-passwords.sh
 chmod +x ./gen-passwords.sh
