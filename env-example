@@ -17,3 +17,9 @@ NGINX_HTTPS_PORT=443
 
 # Network name for Docker containers
 NETWORK_NAME=docker-suhail-meet_meet.suhail
+
+# Set the JWT application ID with the provided value
+JWT_APP_ID=suhail_userservice_dev
+
+# Set the JWT application secret with the provided value
+JWT_APP_SECRET=my_suhail_app_dev_secret
